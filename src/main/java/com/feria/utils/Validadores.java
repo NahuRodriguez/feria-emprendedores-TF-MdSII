@@ -4,38 +4,44 @@ import com.feria.modelos.Emprendedor;
 
 public class Validadores {
 
-    public static boolean emailValido(String email) {
+    public static boolean validarEmail(String email) {
         if (email == null) return false;
         if (!email.contains("@")) return false;
         if (email.length() < 5) return false;
         return true;
     }
 
-    public static boolean telefonoValido(String t) {
-        if (t == null) return false;
-        if (t.length() < 8) return false;
+    public static boolean validarTelefono(String telefono) {
+        if (telefono == null) return false;
+        if (telefono.length() < 8) return false;
         return true;
     }
 
-    public static boolean validarPrecioStock(double precio, int stock) {
-        if (precio <= 0) return false;
-        if (stock < 0) return false;
+    public static boolean validarPrecio(double precio) {
+        return precio > 0;
+    }
+
+    public static boolean validarStock(int stock) {
+        return stock >= 0;
+    }
+
+    public static boolean validarNombre(String nombre) {
+        return !(nombre == null || nombre.length() < 2);
+    }
+
+    public static boolean validarEmprendedorCompleto(Emprendedor emprendedor) {
+        if (emprendedor == null) return false;
+        if (!validarEmail(emprendedor.getEmail())) return false;
+        if (!validarTelefono(emprendedor.getTelefono())) return false;
+        if (!validarNombre(emprendedor.getNombre())) return false;
+        if (!validarCategoria(emprendedor.getCategoria())) return false;
         return true;
     }
 
-    public static boolean validarEmprendedorCompleto(Emprendedor e) {
-        if (e == null) return false;
-        if (!emailValido(e.m)) return false;
-        if (!telefonoValido(e.t)) return false;
-        if (e.n == null || e.n.length() < 2) return false;
-        if (e.cat == null) return false;
-        return true;
-    }
-
-    public static boolean categoriaPermitida(String categoria) {
+    public static boolean validarCategoria(String categoria) {
         String[] permitidas = {"comida", "artesania", "tecnologia", "ropa"};
-        for (String c : permitidas) {
-            if (c.equals(categoria)) return true;
+        for (String categoriaPermitida : permitidas) {
+            if (categoriaPermitida.equals(categoria)) return true;
         }
         return false;
     }
