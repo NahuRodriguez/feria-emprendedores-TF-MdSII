@@ -27,48 +27,12 @@ public class Venta {
         this.pagoRealizado = false;
     }
 
-    public double calcularTotalConDescuento() {
-        double total = cantidad * precioUnitario;
-
-        if (cantidad > 10) {
-            total = total * 0.9;
-        }
-
-        if (total > 5000) {
-            total = total * 0.95;
-        }
-
-        return total;
-    }
-
-    public void actualizarStock(Producto producto) {
-        producto.setStock(producto.getStock() - this.cantidad);
-        System.out.println("Stock actualizado");
-    }
-
     public void registrarPago() {
-        registrarPago(true);
-    }
-
-    public void registrarPago(boolean print) {
         this.pagoRealizado = true;
-        if (print) System.out.println("Pago registrado");
     }
 
-    public String generarRecibo() {
-        String recibo = "=== RECIBO DE VENTA ===\n";
-        recibo += "Venta ID: " + idVenta + "\n";
-        recibo += "Fecha: " + fecha + "\n";
-        recibo += "Producto: " + producto.getNombre() + "\n";
-        recibo += "Cantidad: " + cantidad + "\n";
-        recibo += "Precio unitario: $" + precioUnitario + "\n";
-        recibo += "Total con descuentos: $" + calcularTotalConDescuento() + "\n";
-        recibo += "Pago: " + (pagoRealizado ? "Realizado" : "Pendiente") + "\n";
-        return recibo;
-    }
-
-    public void cobrar() {
-        System.out.println("Cobrada venta " + idVenta + " por $" + calcularTotalConDescuento());
+    public void cobrar(double total) { 
+        System.out.println("Cobrada venta " + idVenta + " por $" + total); 
     }
 
     public String getId() {

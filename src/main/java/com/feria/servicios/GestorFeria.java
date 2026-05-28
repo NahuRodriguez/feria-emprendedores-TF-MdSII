@@ -12,9 +12,17 @@ public class GestorFeria {
     private List<Emprendedor> emprendedores;
     private List<Venta> ventas;
 
+    private CalculadorDescuentos calculadorDescuentos;
+    private ServicioStock servicioStock;
+    private GeneradorRecibos generadorRecibos;
+
     public GestorFeria() {
         emprendedores = new ArrayList<>();
         ventas = new ArrayList<>();
+
+        calculadorDescuentos = new CalculadorDescuentos();
+        servicioStock = new ServicioStock();
+        generadorRecibos = new GeneradorRecibos();
     }
 
     public int getTotalProductos() {
@@ -37,20 +45,21 @@ public class GestorFeria {
         }
         
         emprendedores.add(emprendedor);
+
         System.out.println("Emprendedor registrado con " + emprendedor.getProductos().size() + " productos");
+        
         return emprendedor;
     }
 
-    public void registrarVenta(Venta venta) {
-        try {
-            venta.getProducto().restarStock(venta.getCantidad());
-        } catch (IllegalArgumentException e) {
-            System.out.println("Stock insuficiente para hacer la transacción");
-            return;
-        }
-
-        ventas.add(venta);
-        System.out.println("Venta registrada. Nuevo stock: " + venta.getProducto().getStock());
+    public void registrarVenta(Venta venta) { 
+        try { servicioStock.actualizarStock( venta.getProducto(), 
+            venta.getCantidad() ); } 
+        catch (IllegalArgumentException e) { 
+            System.out.println("Stock insuficiente para hacer la transacción"); 
+            return; 
+        } 
+        ventas.add(venta); 
+        System.out.println( "Venta registrada. Nuevo stock: " + venta.getProducto().getStock() ); 
     }
 
     public List<Emprendedor> getEmprendedoresConStockBajo() {
@@ -67,12 +76,16 @@ public class GestorFeria {
         double totalRecaudado = 0;
         for (Venta venta : ventas) {
             if (!venta.isPagoRealizado()) {
-                double monto = venta.calcularTotalConDescuento();
+                double monto = calculadorDescuentos.calcular(venta);
                 totalRecaudado += monto;
-                venta.registrarPago(false);
-                venta.cobrar();
+                venta.registrarPago();
+                venta.cobrar(monto);
+
+                String recibo = generadorRecibos.generar(venta, monto);
+                System.out.println(recibo);
             }
         }
+        
         System.out.println("Total recaudado: $" + totalRecaudado);
     }
 

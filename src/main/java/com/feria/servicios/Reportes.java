@@ -5,6 +5,10 @@ import com.feria.modelos.Venta;
 
 public class Reportes {
 
+    private CalculadorDescuentos calculador;
+
+    public Reportes() { calculador = new CalculadorDescuentos(); }
+
     public String generarReportePorCategoria(GestorFeria gestor, String categoria) {
         String reporte = "=== REPORTE DE EMPRENDEDORES - CATEGORIA: " + categoria + " ===\n";
 
@@ -32,7 +36,7 @@ public class Reportes {
     public double calcularVentasTotales(GestorFeria gestor) {
         double total = 0;
         for (Venta venta : gestor.getVentas()) {
-            total += venta.calcularTotalConDescuento();
+            total += calculador.calcular(venta);
         }
         return total;
     }
