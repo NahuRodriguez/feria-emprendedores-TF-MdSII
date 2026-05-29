@@ -3,6 +3,7 @@ package com.feria.modelos;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.feria.categorias.Categoria;
 import com.feria.utils.Validadores;
 
 
@@ -13,14 +14,14 @@ public class Emprendedor {
     private String id;
     private String telefono;
     private String email;
-    private String categoria;
+    private Categoria categoria;
     private List<Producto> productos;
 
     static private String getNextId() {
         return "E" + String.format("%03d", nextId++);
     }
 
-    public Emprendedor(String nombre, String telefono, String email, String categoria) {
+    public Emprendedor(String nombre, String telefono, String email, Categoria categoria) {
         this.nombre = nombre;
         this.id = getNextId();
         this.telefono = telefono;
@@ -31,7 +32,7 @@ public class Emprendedor {
         validarConExcepcion();
     }
 
-    public Emprendedor(String nombre, String telefono, String email, String categoria, List<Producto> listaProductos) {
+    public Emprendedor(String nombre, String telefono, String email, Categoria categoria, List<Producto> listaProductos) {
         this(nombre, telefono, email, categoria);
         this.productos = listaProductos;
 
@@ -59,7 +60,7 @@ public class Emprendedor {
         String info = "Emprendedor: " + nombre + "\n";
         info += "ID: " + id + "\n";
         info += "Contacto: " + telefono + " | " + email + "\n";
-        info += "Categoría: " + categoria + "\n";
+        info += "Categoría: " + categoria.getNombre() + "\n";
 
         info += "Productos:\n";
         for (Producto producto : productos) {
@@ -76,9 +77,6 @@ public class Emprendedor {
         }
         if (!Validadores.validarEmail(email)) {
             info += "! EMAIL INVALIDO: " + email + "\n";
-        }
-        if (!Validadores.validarCategoria(categoria)) {
-            info += "! CATEGORIA DESCONOCIDA: " + categoria + "\n";
         }
         return info;
     }
@@ -132,11 +130,11 @@ public class Emprendedor {
         this.email = email;
     }
 
-    public String getCategoria() {
+    public Categoria getCategoria() {
         return categoria;
     }
 
-    public void setCategoria(String categoria) {
+    public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
     }
 

@@ -3,6 +3,7 @@ package com.feria.servicios;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.feria.categorias.Categoria;
 import com.feria.modelos.Emprendedor;
 import com.feria.modelos.Producto;
 import com.feria.modelos.Venta;
@@ -35,7 +36,7 @@ public class GestorFeria {
         return total;
     }
 
-    public Emprendedor registrarEmprendedorConProductos(String nombre, String telefono, String email, String categoria, List<Producto> listaProductos) {
+    public Emprendedor registrarEmprendedorConProductos(String nombre, String telefono, String email, Categoria categoria, List<Producto> listaProductos) {
         Emprendedor emprendedor;
         try {
             emprendedor = new Emprendedor(nombre, telefono, email, categoria, listaProductos);

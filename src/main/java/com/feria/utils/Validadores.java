@@ -34,15 +34,6 @@ public class Validadores {
         if (!validarEmail(emprendedor.getEmail())) return false;
         if (!validarTelefono(emprendedor.getTelefono())) return false;
         if (!validarNombre(emprendedor.getNombre())) return false;
-        if (!validarCategoria(emprendedor.getCategoria())) return false;
         return true;
-    }
-
-    public static boolean validarCategoria(String categoria) {
-        String[] permitidas = {"comida", "artesania", "tecnologia", "ropa"};
-        for (String categoriaPermitida : permitidas) {
-            if (categoriaPermitida.equals(categoria)) return true;
-        }
-        return false;
     }
 }
