@@ -1,5 +1,6 @@
 package com.feria.servicios;
 
+import com.feria.categorias.Categoria;
 import com.feria.modelos.Emprendedor;
 import com.feria.modelos.Venta;
 
@@ -9,8 +10,8 @@ public class Reportes {
 
     public Reportes() { calculador = new CalculadorDescuentos(); }
 
-    public String generarReportePorCategoria(GestorFeria gestor, String categoria) {
-        String reporte = "=== REPORTE DE EMPRENDEDORES - CATEGORIA: " + categoria + " ===\n";
+    public String generarReportePorCategoria(GestorFeria gestor, Categoria categoria) {
+        String reporte = "=== REPORTE DE EMPRENDEDORES - CATEGORIA: " + categoria.getNombre() + " ===\n";
 
         for (Emprendedor emprendedor : gestor.getEmprendedores()) {
             if (emprendedor.getCategoria().equals(categoria)) {
@@ -23,8 +24,8 @@ public class Reportes {
         return reporte;
     }
 
-    public String getEmprendedoresPorCategoria(GestorFeria gestor, String categoria) {
-        String resultado = "REPORTE CATEGORIA " + categoria + "\n";
+    public String getEmprendedoresPorCategoria(GestorFeria gestor, Categoria categoria) {
+        String resultado = "REPORTE CATEGORIA " + categoria.getNombre() + "\n";
         for (Emprendedor emprendedor : gestor.getEmprendedores()) {
             if (emprendedor.getCategoria().equals(categoria)) {
                 resultado += emprendedor.getNombre() + "\n";
