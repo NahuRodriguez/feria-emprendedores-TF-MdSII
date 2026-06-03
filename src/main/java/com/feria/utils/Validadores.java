@@ -2,7 +2,7 @@ package com.feria.utils;
 
 import com.feria.modelos.Emprendedor;
 
-public class Validadores {
+abstract public class Validadores {
 
     public static boolean validarEmail(String email) {
         if (email == null) return false;

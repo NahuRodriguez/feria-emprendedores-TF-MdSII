@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.feria.modelos.Producto;
 
-public class ProductoUtils {
+abstract public class ProductoUtils {
     static public List<Producto> crearListaProductos(List<String> nombres, List<Double> precios, List<Integer> stocks) {
         List<Producto> listaProductos = new ArrayList<>();
         try {

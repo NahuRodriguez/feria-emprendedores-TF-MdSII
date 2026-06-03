@@ -41,8 +41,7 @@ public class Emprendedor {
 
     private void validarConExcepcion() {
         if (!validar()) {
-            System.out.println(validarConInfo());
-            throw new ExceptionInInitializerError("Validación fallada");
+            throw new ExceptionInInitializerError(validarConInfo());
         }
     }
 
