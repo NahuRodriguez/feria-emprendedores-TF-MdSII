@@ -2,9 +2,9 @@ package com.feria.servicios;
 
 import com.feria.modelos.Venta;
 
-public class GeneradorRecibos {
+abstract public class GeneradorRecibos {
 
-    public String generar(Venta venta, double total) {
+    static public String generar(Venta venta, double total) {
 
         return "=== RECIBO DE VENTA ===\n" +
                 "Venta ID: " + venta.getId() + "\n" +

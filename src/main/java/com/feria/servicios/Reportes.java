@@ -4,13 +4,9 @@ import com.feria.categorias.Categoria;
 import com.feria.modelos.Emprendedor;
 import com.feria.modelos.Venta;
 
-public class Reportes {
+abstract public class Reportes {
 
-    private CalculadorDescuentos calculador;
-
-    public Reportes() { calculador = new CalculadorDescuentos(); }
-
-    public String generarReportePorCategoria(GestorFeria gestor, Categoria categoria) {
+    static public String generarReportePorCategoria(GestorFeria gestor, Categoria categoria) {
         String reporte = "=== REPORTE DE EMPRENDEDORES - CATEGORIA: " + categoria.getNombre() + " ===\n";
 
         for (Emprendedor emprendedor : gestor.getEmprendedores()) {
@@ -24,7 +20,7 @@ public class Reportes {
         return reporte;
     }
 
-    public String getEmprendedoresPorCategoria(GestorFeria gestor, Categoria categoria) {
+    static public String getEmprendedoresPorCategoria(GestorFeria gestor, Categoria categoria) {
         String resultado = "REPORTE CATEGORIA " + categoria.getNombre() + "\n";
         for (Emprendedor emprendedor : gestor.getEmprendedores()) {
             if (emprendedor.getCategoria().equals(categoria)) {
@@ -34,15 +30,15 @@ public class Reportes {
         return resultado;
     }
 
-    public double calcularVentasTotales(GestorFeria gestor) {
+    static public double calcularVentasTotales(GestorFeria gestor) {
         double total = 0;
         for (Venta venta : gestor.getVentas()) {
-            total += calculador.calcular(venta);
+            total += CalculadorDescuentos.calcular(venta);
         }
         return total;
     }
 
-    public void imprimirResumenEjecutivo(GestorFeria gestor) {
+    static public void imprimirResumenEjecutivo(GestorFeria gestor) {
         System.out.println("========== RESUMEN EJECUTIVO ==========");
         System.out.println("Total emprendedores: " + gestor.getEmprendedores().size());
         System.out.println("Total productos: " + gestor.getTotalProductos());

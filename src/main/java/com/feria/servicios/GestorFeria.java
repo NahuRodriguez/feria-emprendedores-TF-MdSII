@@ -10,20 +10,37 @@ import com.feria.modelos.Venta;
 
 public class GestorFeria {
 
+    private static GestorFeria singleton = null;
+
     private List<Emprendedor> emprendedores;
     private List<Venta> ventas;
 
-    private CalculadorDescuentos calculadorDescuentos;
-    private ServicioStock servicioStock;
-    private GeneradorRecibos generadorRecibos;
-
-    public GestorFeria() {
+    private GestorFeria() {
         emprendedores = new ArrayList<>();
         ventas = new ArrayList<>();
+    }
 
-        calculadorDescuentos = new CalculadorDescuentos();
-        servicioStock = new ServicioStock();
-        generadorRecibos = new GeneradorRecibos();
+    static public GestorFeria getGestor() {
+        if (singleton == null) {
+            singleton = new GestorFeria();
+        }
+        return singleton;
+    }
+
+    public void addEmprendedores(List<Emprendedor> emprendedores) {
+        this.emprendedores.addAll(emprendedores);
+    }
+
+    public void addVentas(List<Venta> ventas) {
+        this.ventas.addAll(ventas);
+    }
+
+    public void addEmprendedor(Emprendedor emprendedor) {
+        emprendedores.add(emprendedor);
+    }
+
+    public void addVenta(Venta venta) {
+        ventas.add(venta);
     }
 
     public int getTotalProductos() {
@@ -53,7 +70,8 @@ public class GestorFeria {
     }
 
     public void registrarVenta(Venta venta) { 
-        try { servicioStock.actualizarStock( venta.getProducto(), 
+        try {
+            ServicioStock.actualizarStock( venta.getProducto(), 
             venta.getCantidad() ); } 
         catch (IllegalArgumentException e) { 
             System.out.println("Stock insuficiente para hacer la transacción"); 
@@ -77,12 +95,12 @@ public class GestorFeria {
         double totalRecaudado = 0;
         for (Venta venta : ventas) {
             if (!venta.isPagoRealizado()) {
-                double monto = calculadorDescuentos.calcular(venta);
+                double monto = CalculadorDescuentos.calcular(venta);
                 totalRecaudado += monto;
                 venta.registrarPago();
                 venta.cobrar(monto);
 
-                String recibo = generadorRecibos.generar(venta, monto);
+                String recibo = GeneradorRecibos.generar(venta, monto);
                 System.out.println(recibo);
             }
         }
@@ -91,10 +109,10 @@ public class GestorFeria {
     }
 
     public List<Emprendedor> getEmprendedores() {
-        return emprendedores;
+        return List.copyOf(emprendedores);
     }
 
     public List<Venta> getVentas() {
-        return ventas;
+        return List.copyOf(ventas);
     }
 }
