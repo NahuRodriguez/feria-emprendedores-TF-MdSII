@@ -29,12 +29,54 @@ jobs:
       - name: Ejecutar tests con JaCoCo
         run: mvn clean verify
 
-      - name: Subir resultados de tests
-        uses: actions/upload-artifact@v4
-        with:
-          name: test-results
-          path: target/surefire-reports/
-
+      - name: Summary detallado de tests y cobertura
+        if: always()
+        shell: bash
+        run: |
+          {
+            echo "## Resultados de tests"
+            echo ""
+            echo "| Clase | Tests | Fallos | Errores | Omitidos |"
+            echo "|---|---:|---:|---:|---:|"
+      
+            for file in target/surefire-reports/TEST-*.xml; do
+              [ -e "$file" ] || continue
+      
+              name=$(grep -o 'name="[^"]*"' "$file" | head -1 | cut -d'"' -f2)
+              tests=$(grep -o 'tests="[^"]*"' "$file" | head -1 | cut -d'"' -f2)
+              failures=$(grep -o 'failures="[^"]*"' "$file" | head -1 | cut -d'"' -f2)
+              errors=$(grep -o 'errors="[^"]*"' "$file" | head -1 | cut -d'"' -f2)
+              skipped=$(grep -o 'skipped="[^"]*"' "$file" | head -1 | cut -d'"' -f2)
+      
+              echo "| $name | $tests | $failures | $errors | $skipped |"
+            done
+      
+            echo ""
+            echo "## Cobertura por clase"
+            echo ""
+            echo "| Package | Clase | Instructions | Branches | Lines | Methods |"
+            echo "|---|---|---:|---:|---:|---:|"
+      
+            awk -F, '
+              NR > 1 {
+                package=$2
+                class=$3
+      
+                instruction_total=$4+$5
+                branch_total=$6+$7
+                line_total=$8+$9
+                method_total=$12+$13
+      
+                instruction_pct = instruction_total == 0 ? 100 : ($5 / instruction_total) * 100
+                branch_pct = branch_total == 0 ? 100 : ($7 / branch_total) * 100
+                line_pct = line_total == 0 ? 100 : ($9 / line_total) * 100
+                method_pct = method_total == 0 ? 100 : ($13 / method_total) * 100
+      
+                printf "| %s | %s | %.2f%% | %.2f%% | %.2f%% | %.2f%% |\n", package, class, instruction_pct, branch_pct, line_pct, method_pct
+              }
+            ' target/site/jacoco/jacoco.csv
+          } >> "$GITHUB_STEP_SUMMARY"
+  
       - name: Subir reporte JaCoCo
         uses: actions/upload-artifact@v4
         with:
