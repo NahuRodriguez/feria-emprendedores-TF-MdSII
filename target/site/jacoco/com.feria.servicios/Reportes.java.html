@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Reportes.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">feria-emprendedores</a> &gt; <a href="index.source.html" class="el_package">com.feria.servicios</a> &gt; <span class="el_source">Reportes.java</span></div><h1>Reportes.java</h1><pre class="source lang-java linenums">package com.feria.servicios;
+
+import com.feria.categorias.Categoria;
+import com.feria.modelos.Emprendedor;
+import com.feria.modelos.Venta;
+
+<span class="nc" id="L7">abstract public class Reportes {</span>
+
+    static public String generarReportePorCategoria(GestorFeria gestor, Categoria categoria) {
+<span class="nc" id="L10">        String reporte = &quot;=== REPORTE DE EMPRENDEDORES - CATEGORIA: &quot; + categoria.getNombre() + &quot; ===\n&quot;;</span>
+
+<span class="nc bnc" id="L12" title="All 2 branches missed.">        for (Emprendedor emprendedor : gestor.getEmprendedores()) {</span>
+<span class="nc bnc" id="L13" title="All 2 branches missed.">            if (emprendedor.getCategoria().equals(categoria)) {</span>
+<span class="nc" id="L14">                reporte += emprendedor.mostrarInfo();</span>
+<span class="nc" id="L15">                reporte += emprendedor.validarConInfo();</span>
+<span class="nc" id="L16">                reporte += &quot;---\n&quot;;</span>
+            }
+<span class="nc" id="L18">        }</span>
+
+<span class="nc" id="L20">        return reporte;</span>
+    }
+
+    static public String getEmprendedoresPorCategoria(GestorFeria gestor, Categoria categoria) {
+<span class="nc" id="L24">        String resultado = &quot;REPORTE CATEGORIA &quot; + categoria.getNombre() + &quot;\n&quot;;</span>
+<span class="nc bnc" id="L25" title="All 2 branches missed.">        for (Emprendedor emprendedor : gestor.getEmprendedores()) {</span>
+<span class="nc bnc" id="L26" title="All 2 branches missed.">            if (emprendedor.getCategoria().equals(categoria)) {</span>
+<span class="nc" id="L27">                resultado += emprendedor.getNombre() + &quot;\n&quot;;</span>
+            }
+<span class="nc" id="L29">        }</span>
+<span class="nc" id="L30">        return resultado;</span>
+    }
+
+    static public double calcularVentasTotales(GestorFeria gestor) {
+<span class="nc" id="L34">        double total = 0;</span>
+<span class="nc bnc" id="L35" title="All 2 branches missed.">        for (Venta venta : gestor.getVentas()) {</span>
+<span class="nc" id="L36">            total += CalculadorDescuentos.calcular(venta);</span>
+<span class="nc" id="L37">        }</span>
+<span class="nc" id="L38">        return total;</span>
+    }
+
+    static public void imprimirResumenEjecutivo(GestorFeria gestor) {
+<span class="nc" id="L42">        System.out.println(&quot;========== RESUMEN EJECUTIVO ==========&quot;);</span>
+<span class="nc" id="L43">        System.out.println(&quot;Total emprendedores: &quot; + gestor.getEmprendedores().size());</span>
+<span class="nc" id="L44">        System.out.println(&quot;Total productos: &quot; + gestor.getTotalProductos());</span>
+<span class="nc" id="L45">        System.out.println(&quot;Total ventas: &quot; + gestor.getVentas().size());</span>
+
+<span class="nc" id="L47">        System.out.println(&quot;Total facturado: $&quot; + calcularVentasTotales(gestor));</span>
+
+<span class="nc" id="L49">        System.out.println(&quot;Emprendedores con stock bajo: &quot; + gestor.getEmprendedoresConStockBajo().size());</span>
+<span class="nc" id="L50">        System.out.println(&quot;=======================================&quot;);</span>
+<span class="nc" id="L51">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

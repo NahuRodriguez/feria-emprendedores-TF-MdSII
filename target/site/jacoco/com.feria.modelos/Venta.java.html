@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Venta.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">feria-emprendedores</a> &gt; <a href="index.source.html" class="el_package">com.feria.modelos</a> &gt; <span class="el_source">Venta.java</span></div><h1>Venta.java</h1><pre class="source lang-java linenums">package com.feria.modelos;
+
+import java.time.LocalDate;
+
+public class Venta {
+
+<span class="fc" id="L7">    static private int nextIdVenta = 1;</span>
+    private String idVenta;
+    private Emprendedor emprendedor;
+    private Producto producto;
+    private int cantidad;
+    private double precioUnitario;
+    private LocalDate fecha;
+    private boolean pagoRealizado;
+
+    private static String getNextIdVenta() {
+<span class="fc" id="L17">        return &quot;V&quot; + String.format(&quot;%03d&quot;, nextIdVenta++);</span>
+    }
+
+<span class="fc" id="L20">    public Venta(Emprendedor emprendedor, Producto producto, int cantidad, double precioUnitario, LocalDate fecha) {</span>
+<span class="fc" id="L21">        this.idVenta = getNextIdVenta();</span>
+<span class="fc" id="L22">        this.emprendedor = emprendedor;</span>
+<span class="fc" id="L23">        this.producto = producto;</span>
+<span class="fc" id="L24">        this.cantidad = cantidad;</span>
+<span class="fc" id="L25">        this.precioUnitario = precioUnitario;</span>
+<span class="fc" id="L26">        this.fecha = fecha;</span>
+<span class="fc" id="L27">        this.pagoRealizado = false;</span>
+<span class="fc" id="L28">    }</span>
+
+    public void registrarPago() {
+<span class="nc" id="L31">        this.pagoRealizado = true;</span>
+<span class="nc" id="L32">    }</span>
+
+    public void cobrar(double total) { 
+<span class="nc" id="L35">        System.out.println(&quot;Cobrada venta &quot; + idVenta + &quot; por $&quot; + total); </span>
+<span class="nc" id="L36">    }</span>
+
+    public String getId() {
+<span class="nc" id="L39">        return idVenta;</span>
+    }
+
+    public void setId(String idVenta) {
+<span class="nc" id="L43">        this.idVenta = idVenta;</span>
+<span class="nc" id="L44">    }</span>
+
+    public Emprendedor getEmprendedor() {
+<span class="nc" id="L47">        return emprendedor;</span>
+    }
+
+    public void setEmprendedor(Emprendedor emprendedor) {
+<span class="nc" id="L51">        this.emprendedor = emprendedor;</span>
+<span class="nc" id="L52">    }</span>
+
+    public Producto getProducto() {
+<span class="fc" id="L55">        return producto;</span>
+    }
+
+    public void setProducto(Producto producto) {
+<span class="nc" id="L59">        this.producto = producto;</span>
+<span class="nc" id="L60">    }</span>
+
+    public int getCantidad() {
+<span class="fc" id="L63">        return cantidad;</span>
+    }
+
+    public void setCantidad(int cantidad) {
+<span class="nc" id="L67">        this.cantidad = cantidad;</span>
+<span class="nc" id="L68">    }</span>
+
+    public double getPrecioUnitario() {
+<span class="fc" id="L71">        return precioUnitario;</span>
+    }
+
+    public void setPrecioUnitario(double precioUnitario) {
+<span class="nc" id="L75">        this.precioUnitario = precioUnitario;</span>
+<span class="nc" id="L76">    }</span>
+
+    public LocalDate getFecha() {
+<span class="nc" id="L79">        return fecha;</span>
+    }
+
+    public void setFecha(LocalDate fecha) {
+<span class="nc" id="L83">        this.fecha = fecha;</span>
+<span class="nc" id="L84">    }</span>
+
+    public boolean isPagoRealizado() {
+<span class="nc" id="L87">        return pagoRealizado;</span>
+    }
+
+    public void setPagoRealizado(boolean pagoRealizado) {
+<span class="nc" id="L91">        this.pagoRealizado = pagoRealizado;</span>
+<span class="nc" id="L92">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>
