@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.feria.servicios.GestorFeriaTest
 -------------------------------------------------------------------------------
-Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.551 s -- in com.feria.servicios.GestorFeriaTest
+Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.842 s -- in com.feria.servicios.GestorFeriaTest

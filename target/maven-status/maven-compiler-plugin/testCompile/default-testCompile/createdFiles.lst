@@ -1,0 +1,4 @@
+com\feria\utils\ValidadoresTest.class
+com\feria\modelos\ProductoTest.class
+com\feria\servicios\GestorFeriaTest.class
+com\feria\servicios\CalculadorDescuentosTest.class
