@@ -1,33 +1,33 @@
-## Feria de Emprendedores
+# Feria de Emprendedores
 
 Sistema para gestionar una feria de emprendedores.
 
-# Tecnologías
+## Tecnologías
 
 - Java 17 / Maven
 - JUnit 5 + Mockito
 - JaCoCo
 - GitHub Actions
 
-# Compilar el proyecto
+## Compilar el proyecto
 
 ```bash
 mvn clean compile
 ```
 
-# Ejecutar Programa
+## Ejecutar Programa
 
 ```bash
 java -cp target/classes com.feria.Main
 ```
 
-# Realizar Tests
+## Realizar Tests
 
 ```bash
 mvn test
 ```
 
-# Cobertura (reporte en target/site/jacoco/index.html)
+## Cobertura (reporte en target/site/jacoco/index.html)
 
 ```bash
 mvn clean verify
